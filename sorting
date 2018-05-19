@@ -1,0 +1,80 @@
+Create Heap Sort three steps 
+1. create binary tree
+2. heapify tree -> become heap
+3. heap sort 
+
+/*********** create tree **************/
+
+vector<int> binary_tree{1, 10, ,2 ,7 , 8 ,3 , 5}           
+
+
+
+/*********** heapify tree **************/
+
+void heapify(int arr[], int root){ 
+ int  largest;
+ int  left  = 2*root;
+ int  right = 2*root+1;
+ if( left < arr.size() && arr[left] > arr[largest])
+      largest = left;
+ if( right < arr.size() && arr[right] > arr[largest])
+      largest = right;
+ if(largest != root){
+    swap(arr[root], arr[largest]);
+    heapify(arr,largest );
+ }
+
+}
+
+void heapify_tree(int binary_tree[ ]){
+                                                            bottom-up
+for(int i =binary_tree.size()/2-1; i >=0 ; i++ ){           0 - binary_tree.size()/2-1                 =>  是root                                            
+      heapify(binary_tree, i );                             binary_tree.size()/2 - binary_tree.size()  =>  是leaf  
+  }                                                         root 不用heapify
+}
+
+/*********** heap sort  **************/
+
+void heap_sort(int binary_tree[ ]){
+
+heapify_tree(arr);
+
+for(int i = binary_tree.size()-1; i >= 0; i-- ){                    arr.size()-1 => leaf  leaf 跟root 互換
+     int max = binary_tree[0]; 
+     binary_tree.resize(1, binary_tree.size()-1);           /*     3        take  binary_tree[0] 3     
+     heapify(binary_tree, 0);                                    /   \            =>                /   \   => heapify 
+}                                                               1     2                            1     2
+                                                                  2         take  binary_tree[0] 2    
+}                                                                   \             =>                 1     
+                                                                     1                                  
+int main(){
+    vector<int> binary_tree{1, 10, ,2 ,7 , 8 ,3 , 5} 
+    heap_sort(binary_tree);
+}
+
+
+/*********** extract maximum and minimum **************/
+
+
+int get_maximum_vlaue (int binary_tree[ ]){
+
+int max = binary_tree[0];                                            extract maximum value => binary_tree[0]
+    binary_tree.resize(1, binary_tree.size()-1);                     剩下的tree node 再 heapify
+    heapify(binary_tree[], root);
+    return max;
+}
+
+
+/*********** increase key **************/
+
+
+void increase_key (int binary_tree[ ], int node_num, int key){
+
+   binary_tree[node_num] = key;
+
+   while(node_num > 1 && binary_tree[node_num] > binary_tree[node_num/2]){        // 比parent 大
+     swap(binary_tree[node_num],binary_tree[node_num/2]);                         // 值交換
+     node_num = node_num/2;                                                       // node_num 變成 parent 再從parent 繼續找
+   }
+    
+}
